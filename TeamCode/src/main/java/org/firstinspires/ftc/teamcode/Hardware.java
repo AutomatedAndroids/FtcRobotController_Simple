@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /** @noinspection unused*/
@@ -18,6 +19,7 @@ public class Hardware {
     public static DcMotor leftWheel, rightWheel, arm, slider1, slider2;
     public static CRServo intake;
     public static Servo wrist;
+    public static IMU imu;
 
 
     public static Limelight3A limeLight;
@@ -44,6 +46,8 @@ public class Hardware {
 
         slider1 = this.hardwareMap.get(DcMotor.class, "leftAct");
         slider2 = this.hardwareMap.get(DcMotor.class, "rightAct");
+
+        imu = this.hardwareMap.get(IMU.class, "imu");
 
 
         leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
