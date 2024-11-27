@@ -74,7 +74,7 @@ public class SensorLimelight3A extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException
     {
-        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight = hardwareMap.get(Limelight3A.class, "frontLLCam");
 
         telemetry.setMsTransmissionInterval(11);
 

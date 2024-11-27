@@ -21,6 +21,7 @@ public class Hardware {
     public static Servo wrist;
     public static IMU imu;
 
+    public static GoBildaPinpointDriver odometry;
 
     public static Limelight3A limeLight;
 
@@ -49,11 +50,12 @@ public class Hardware {
 
         imu = this.hardwareMap.get(IMU.class, "imu");
 
+        odometry = this.hardwareMap.get(GoBildaPinpointDriver.class, "odo");
 
         leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        limeLight = this.hardwareMap.get(Limelight3A.class, "limelight");
+        limeLight = this.hardwareMap.get(Limelight3A.class, "frontLLCam");
     }
 }
