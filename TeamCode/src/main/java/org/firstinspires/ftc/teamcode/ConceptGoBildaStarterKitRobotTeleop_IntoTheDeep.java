@@ -418,6 +418,15 @@ back to folded inside the robot. This is also the starting configuration */
                         wrist.setPosition(WRIST_FOLDED_IN);
                     }
 
+                    else if (gamepad2.b){
+                    wrist.setPosition(WRIST_FOLDED_IN);
+                    }
+
+                    else if (gamepad2.a){
+                    wrist.setPosition(WRIST_FOLDED_OUT);
+                    }
+                    //These two should allow for specimen scoring
+
 /* Here we set the target position of our arm to match the variable that was selected
 by the driver.
 We also set the target velocity (speed) the motor runs at, and use setMode to run it.*/
