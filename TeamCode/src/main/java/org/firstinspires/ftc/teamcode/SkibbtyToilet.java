@@ -35,7 +35,7 @@ The motor's encoder counts 28 times per rotation. So in total you should see abo
 counts per rotation of the arm. We divide that by 360 to get the counts per degree. */
     final double ARM_TICKS_PER_DEGREE =
             28 // number of encoder ticks per rotation of the bare motor
-                    * 250047.0 / 4913.0 // This is the exact gear ratio of the 50.9:1 Yellow Jacket gearbox
+                    * 99.5 // The gear ration of the motor we use
                     * 100.0 / 20.0 // This is the external gear reduction, a 20T pinion gear that drives a 100T hub-mount gear
                     * 1 / 360.0; // we want ticks per degree, not per rotation
 
@@ -68,6 +68,7 @@ counts per rotation of the arm. We divide that by 360 to get the counts per degr
     final double WRIST_FOLDED_OUT = -0.5;
 
     /* A number in degrees that the triggers can adjust the arm position by */
+
     final double FUDGE_FACTOR = 15 * ARM_TICKS_PER_DEGREE;
 
     /* Variables that are used to set the arm to a specific position */
