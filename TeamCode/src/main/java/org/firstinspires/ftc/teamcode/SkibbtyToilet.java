@@ -52,7 +52,7 @@ counts per rotation of the arm. We divide that by 360 to get the counts per degr
     as far from the starting position, decrease it. */
 
     final double ARM_COLLAPSED_INTO_ROBOT = 0;
-    final double ARM_COLLECT = 225 * ARM_TICKS_PER_DEGREE;
+    final double ARM_COLLECT = 180  * ARM_TICKS_PER_DEGREE;
     final double ARM_CLEAR_BARRIER = 205 * ARM_TICKS_PER_DEGREE;
     final double ARM_SCORE_SPECIMEN = 135 * ARM_TICKS_PER_DEGREE;
     final double ARM_SCORE_SAMPLE_IN_LOW = 135 * ARM_TICKS_PER_DEGREE;
@@ -65,7 +65,7 @@ counts per rotation of the arm. We divide that by 360 to get the counts per degr
 
     /* Variables to store the positions that the wrist should be set to when folding in, or folding out. */
     final double WRIST_FOLDED_IN = 0.8333;
-    final double WRIST_FOLDED_OUT = 0.5;
+    final double WRIST_FOLDED_OUT = -0.5;
 
     /* A number in degrees that the triggers can adjust the arm position by */
     final double FUDGE_FACTOR = 15 * ARM_TICKS_PER_DEGREE;
@@ -106,12 +106,10 @@ counts per rotation of the arm. We divide that by 360 to get the counts per degr
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         /* Define and initialize servos.*/
-        intake = hardwareMap.get(CRServo.class, "frontServo");
-        wrist = hardwareMap.get(Servo.class, "turnServo");
+        intake = hardwareMap.get(CRServo.class, "turnServo");
+        wrist = hardwareMap.get(Servo.class, "frontServo");
 
         /* Make sure that the intake is off, and the wrist is folded in. */
-        intake.setPower(INTAKE_OFF);
-        wrist.setPosition(WRIST_FOLDED_IN);
 
         /* Send telemetry message to signify robot waiting */
         telemetry.addLine("Robot Ready.");
