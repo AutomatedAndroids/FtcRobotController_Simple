@@ -102,7 +102,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends
     public Servo wrist = null; //the wrist servo
     public DcMotor leftActuator = null;
     public DcMotor rightActuator = null;
-    private Limelight3A frontlimelight = null; //the front limelight camera
+//    private Limelight3A frontlimelight = null; //the front limelight camera
     private IMU imu = null;
 
     /* This constant is the number of encoder ticks for each degree of
@@ -144,7 +144,7 @@ as far from the starting position, decrease it. */
     final double ARM_CLEAR_BARRIER = 235 * ARM_TICKS_PER_DEGREE;
     final double ARM_SCORE_SPECIMEN = 165 * ARM_TICKS_PER_DEGREE;
     final double ARM_SCORE_SAMPLE_IN_LOW = 165 * ARM_TICKS_PER_DEGREE;
-    final double ARM_ATTACH_HANGING_HOOK = 125 * ARM_TICKS_PER_DEGREE;
+    final double ARM_ATTACH_HANGING_HOOK = 133   * ARM_TICKS_PER_DEGREE;
     final double ARM_WINCH_ROBOT = 20 * ARM_TICKS_PER_DEGREE;
 
     /* Variables to store the speed the intake servo should be set at to
@@ -232,12 +232,12 @@ run in this code. */
 
         imu =hardwareMap.get(IMU.class, "imu");
         /* define and init Limelight3A sensors */
-        frontlimelight = hardwareMap.get(Limelight3A.class, "frontLLCam");
+//        frontlimelight = hardwareMap.get(Limelight3A.class, "frontLLCam");
         telemetry.setMsTransmissionInterval(11);
-        frontlimelight.pipelineSwitch(0);
-
-        /* Limelights start polling data. */
-        frontlimelight.start();
+//        frontlimelight.pipelineSwitch(0);
+//
+//        /* Limelights start polling data. */
+//        frontlimelight.start();
 
         /* Send telemetry message to signify limelight status */
         telemetry.addLine("Limelight started.");
@@ -253,94 +253,94 @@ run in this code. */
 
         /* Run until the driver presses stop */
         while (opModeIsActive()) {
-            /* display Limelight data. */
-            LLStatus llStatus = frontlimelight.getStatus();
-            telemetry.addData("Name", "%s",
-                    llStatus.getName());
-            telemetry.addData("LL", "Temp: %.1fC, CPU: %.1f%%, FPS: %d",
-                    llStatus.getTemp(), llStatus.getCpu(),(int)llStatus.getFps());
-            telemetry.addData("Pipeline", "Index: %d, Type: %s",
-                    llStatus.getPipelineIndex(), llStatus.getPipelineType());
-
-            LLResult frontLLResult = frontlimelight.getLatestResult();
-            if(frontLLResult != null) {
-                double captureLatency = frontLLResult.getCaptureLatency();
-                double targetingLatency = frontLLResult.getTargetingLatency();
-                double parseLatency = frontLLResult.getParseLatency();
-                telemetry.addData("LL Latency", captureLatency + targetingLatency);
-                telemetry.addData("Parse Latency", parseLatency);
-//telemetry.addData("PythonOutput",
-                java.util.Arrays.toString(frontLLResult.getPythonOutput());
-                if(frontLLResult.isValid()) {
-                    Pose3D botpose = frontLLResult.getBotpose();
-                    telemetry.addData("tx", frontLLResult.getTx());
-                    telemetry.addData("ty", frontLLResult.getTy());
-                    telemetry.addData("Botpose", botpose.toString());
-                    telemetry.addData("txnc", frontLLResult.getTxNC());
-                    telemetry.addData("tync", frontLLResult.getTyNC());
-
-// Get robot location using MegaTag 1
-                    if (botpose != null) {
-                        double x = botpose.getPosition().x;
-                        double y = botpose.getPosition().y;
-                        telemetry.addData("MT1 Location", "(" + x + ", " + y + ")");
-
-                    }
-
-// Get robot location using MegaTag 2
-// First, tell Limelight which way your robot is facing
-                    double robotYaw = imu.getRobotOrientation(AxesReference.INTRINSIC,
-                            AxesOrder.XYZ, AngleUnit.DEGREES).firstAngle;
-                    frontlimelight.updateRobotOrientation(robotYaw);
-                    Pose3D botpose_mt2 = frontLLResult.getBotpose_MT2();
-                    if (botpose_mt2 != null) {
-                        double x = botpose_mt2.getPosition().x;
-                        double y = botpose_mt2.getPosition().y;
-                        telemetry.addData("MT2 Location:", "(" + x + ", " + y + ")");
-                    }
-/*
-// Access barcode results
-List<LLResultTypes.BarcodeResult> barcodeResults =
-frontLLResult.getBarcodeResults();
-for (LLResultTypes.BarcodeResult br : barcodeResults) {
-telemetry.addData("Barcode", "Data: %s", br.getData());
-}
-
-// Access classifier results
-List<LLResultTypes.ClassifierResult> classifierResults =
-frontLLResult.getClassifierResults();
-for (LLResultTypes.ClassifierResult cr : classifierResults) {
-telemetry.addData("Classifier", "Class: %s, Confidence: %.2f",
-cr.getClassName(), cr.getConfidence());
-}
-
-// Access detector results
-List<LLResultTypes.DetectorResult> detectorResults =
-frontLLResult.getDetectorResults();
-for (LLResultTypes.DetectorResult dr : detectorResults) {
-telemetry.addData("Detector", "Class: %s, Area: %.2f",
-dr.getClassName(), dr.getTargetArea());
-}
-
-// Access fiducial results
-List<LLResultTypes.FiducialResult> fiducialResults =
-frontLLResult.getFiducialResults();
-for (LLResultTypes.FiducialResult fr : fiducialResults) {
-telemetry.addData("Fiducial", "ID: %d, Family: %s, X: %.2f, Y: %.2f",
-fr.getFiducialId(), fr.getFamily(),fr.getTargetXDegrees(),
-fr.getTargetYDegrees());
-}
-
-// Access color results
-List<LLResultTypes.ColorResult> colorResults = frontLLResult.getColorResults();
-for (LLResultTypes.ColorResult cr : colorResults) {
-telemetry.addData("Color", "X: %.2f, Y: %.2f", cr.getTargetXDegrees(),
-cr.getTargetYDegrees());
-} */
-                }
-            } else {
-//                telemetry.addData("Limelight", "No data available");
-            }
+//            /* display Limelight data. */
+//            LLStatus llStatus = frontlimelight.getStatus();
+//            telemetry.addData("Name", "%s",
+//                    llStatus.getName());
+//            telemetry.addData("LL", "Temp: %.1fC, CPU: %.1f%%, FPS: %d",
+//                    llStatus.getTemp(), llStatus.getCpu(),(int)llStatus.getFps());
+//            telemetry.addData("Pipeline", "Index: %d, Type: %s",
+//                    llStatus.getPipelineIndex(), llStatus.getPipelineType());
+//
+//            LLResult frontLLResult = frontlimelight.getLatestResult();
+//            if(frontLLResult != null) {
+//                double captureLatency = frontLLResult.getCaptureLatency();
+//                double targetingLatency = frontLLResult.getTargetingLatency();
+//                double parseLatency = frontLLResult.getParseLatency();
+//                telemetry.addData("LL Latency", captureLatency + targetingLatency);
+//                telemetry.addData("Parse Latency", parseLatency);
+////telemetry.addData("PythonOutput",
+//                java.util.Arrays.toString(frontLLResult.getPythonOutput());
+//                if(frontLLResult.isValid()) {
+//                    Pose3D botpose = frontLLResult.getBotpose();
+//                    telemetry.addData("tx", frontLLResult.getTx());
+//                    telemetry.addData("ty", frontLLResult.getTy());
+//                    telemetry.addData("Botpose", botpose.toString());
+//                    telemetry.addData("txnc", frontLLResult.getTxNC());
+//                    telemetry.addData("tync", frontLLResult.getTyNC());
+//
+//// Get robot location using MegaTag 1
+//                    if (botpose != null) {
+//                        double x = botpose.getPosition().x;
+//                        double y = botpose.getPosition().y;
+//                        telemetry.addData("MT1 Location", "(" + x + ", " + y + ")");
+//
+//                    }
+//
+//// Get robot location using MegaTag 2
+//// First, tell Limelight which way your robot is facing
+//                    double robotYaw = imu.getRobotOrientation(AxesReference.INTRINSIC,
+//                            AxesOrder.XYZ, AngleUnit.DEGREES).firstAngle;
+//                    frontlimelight.updateRobotOrientation(robotYaw);
+//                    Pose3D botpose_mt2 = frontLLResult.getBotpose_MT2();
+//                    if (botpose_mt2 != null) {
+//                        double x = botpose_mt2.getPosition().x;
+//                        double y = botpose_mt2.getPosition().y;
+//                        telemetry.addData("MT2 Location:", "(" + x + ", " + y + ")");
+//                    }
+///*
+//// Access barcode results
+//List<LLResultTypes.BarcodeResult> barcodeResults =
+//frontLLResult.getBarcodeResults();
+//for (LLResultTypes.BarcodeResult br : barcodeResults) {
+//telemetry.addData("Barcode", "Data: %s", br.getData());
+//}
+//
+//// Access classifier results
+//List<LLResultTypes.ClassifierResult> classifierResults =
+//frontLLResult.getClassifierResults();
+//for (LLResultTypes.ClassifierResult cr : classifierResults) {
+//telemetry.addData("Classifier", "Class: %s, Confidence: %.2f",
+//cr.getClassName(), cr.getConfidence());
+//}
+//
+//// Access detector results
+//List<LLResultTypes.DetectorResult> detectorResults =
+//frontLLResult.getDetectorResults();
+//for (LLResultTypes.DetectorResult dr : detectorResults) {
+//telemetry.addData("Detector", "Class: %s, Area: %.2f",
+//dr.getClassName(), dr.getTargetArea());
+//}
+//
+//// Access fiducial results
+//List<LLResultTypes.FiducialResult> fiducialResults =
+//frontLLResult.getFiducialResults();
+//for (LLResultTypes.FiducialResult fr : fiducialResults) {
+//telemetry.addData("Fiducial", "ID: %d, Family: %s, X: %.2f, Y: %.2f",
+//fr.getFiducialId(), fr.getFamily(),fr.getTargetXDegrees(),vbvb
+//fr.getTargetYDegrees());
+//}
+//
+//// Access color results
+//List<LLResultTypes.ColorResult> colorResults = frontLLResult.getColorResults();
+//for (LLResultTypes.ColorResult cr : colorResults) {
+//telemetry.addData("Color", "X: %.2f, Y: %.2f", cr.getTargetXDegrees(),
+//cr.getTargetYDegrees());
+//} */
+//                }
+//            } else {
+////                telemetry.addData("Limelight", "No data available");
+//            }
 
 //            telemetry.update();
 
@@ -479,7 +479,7 @@ back to folded inside the robot. This is also the starting configuration */
 
             else if (gamepad1.dpad_up){
                 /* This sets the arm to vertical to hook onto the LOW RUNG for hanging */
-                armPosition = ARM_ATTACH_HANGING_HOOK+7;
+                armPosition = ARM_ATTACH_HANGING_HOOK;
                 intake.setPower(INTAKE_OFF);
                 wrist.setPosition(WRIST_FOLDED_IN);
             }
@@ -561,6 +561,6 @@ target position */
 
         }
 
-        frontlimelight.stop();
+//        frontlimelight.stop();
     }
 }
