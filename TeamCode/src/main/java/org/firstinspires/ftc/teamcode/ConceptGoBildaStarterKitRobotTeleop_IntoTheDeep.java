@@ -140,7 +140,7 @@ it to not move
 as far from the starting position, decrease it. */
 
     final double ARM_COLLAPSED_INTO_ROBOT = 0;
-    final double ARM_COLLECT = 255 * ARM_TICKS_PER_DEGREE;
+    final double ARM_COLLECT = 265 * ARM_TICKS_PER_DEGREE;
     final double ARM_CLEAR_BARRIER = 235 * ARM_TICKS_PER_DEGREE;
     final double ARM_SCORE_SPECIMEN = 165 * ARM_TICKS_PER_DEGREE;
     final double ARM_SCORE_SAMPLE_IN_LOW = 165 * ARM_TICKS_PER_DEGREE;
@@ -339,10 +339,10 @@ cr.getTargetYDegrees());
 } */
                 }
             } else {
-                telemetry.addData("Limelight", "No data available");
+//                telemetry.addData("Limelight", "No data available");
             }
 
-            telemetry.update();
+//            telemetry.update();
 
 /* Set the drive and turn variables to follow the joysticks on the gamepad.
 the joysticks decrease as you push them up. So reverse the Y axis. */
@@ -436,10 +436,17 @@ it folds out the wrist to make sure it is in the correct orientation
 to intake, and it
 turns the intake on to the COLLECT mode.*/
 
+            if(gamepad2.x) {
+                wrist.setPosition(WRIST_FOLDED_IN);
+            }
+            else if(gamepad2.y) {
+                wrist.setPosition(WRIST_FOLDED_OUT);
+            }
+
             if(gamepad1.right_bumper){
                 /* This is the intaking/collecting arm position */
                 armPosition = ARM_COLLECT;
-                wrist.setPosition(WRIST_FOLDED_IN);
+                wrist.setPosition(WRIST_FOLDED_OUT);
                 intake.setPower(INTAKE_COLLECT);
             }
 
@@ -467,7 +474,7 @@ back to folded inside the robot. This is also the starting configuration */
             else if (gamepad1.dpad_right){
                 /* This is the correct height to score SPECIMEN on the HIGH CHAMBER */
                 armPosition = ARM_SCORE_SPECIMEN;
-                wrist.setPosition(WRIST_FOLDED_IN);
+                wrist.setPosition(WRIST_FOLDED_OUT);
             }
 
             else if (gamepad1.dpad_up){
