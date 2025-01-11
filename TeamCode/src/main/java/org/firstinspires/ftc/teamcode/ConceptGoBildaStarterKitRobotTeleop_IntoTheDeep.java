@@ -140,7 +140,7 @@ it to not move
 as far from the starting position, decrease it. */
 
     final double ARM_COLLAPSED_INTO_ROBOT = 0;
-    final double ARM_COLLECT = 265 * ARM_TICKS_PER_DEGREE;
+    final double ARM_COLLECT = 260 * ARM_TICKS_PER_DEGREE;
     final double ARM_CLEAR_BARRIER = 235 * ARM_TICKS_PER_DEGREE;
     final double ARM_SCORE_SPECIMEN = 165 * ARM_TICKS_PER_DEGREE;
     final double ARM_SCORE_SAMPLE_IN_LOW = 165 * ARM_TICKS_PER_DEGREE;
@@ -346,7 +346,7 @@ cr.getTargetYDegrees());
 
 /* Set the drive and turn variables to follow the joysticks on the gamepad.
 the joysticks decrease as you push them up. So reverse the Y axis. */
-            forward = -gamepad1.left_stick_y;
+            forward = gamepad1.left_stick_y;
             rotate = gamepad1.right_stick_x;
 
 
@@ -479,7 +479,7 @@ back to folded inside the robot. This is also the starting configuration */
 
             else if (gamepad1.dpad_up){
                 /* This sets the arm to vertical to hook onto the LOW RUNG for hanging */
-                armPosition = ARM_ATTACH_HANGING_HOOK;
+                armPosition = ARM_ATTACH_HANGING_HOOK+7;
                 intake.setPower(INTAKE_OFF);
                 wrist.setPosition(WRIST_FOLDED_IN);
             }
@@ -542,7 +542,7 @@ telemetry. */
 
 
             /* setup Actuator position */
-            raise = -gamepad1.right_stick_y;
+            raise = -gamepad2.right_stick_y;
             leftActuator.setPower(raise);
             rightActuator.setPower(raise);
 
