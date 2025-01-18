@@ -58,8 +58,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Score By Time", group="Robot")
-public class Robot_RunByTimeAuto extends LinearOpMode {
+@Autonomous(name="POV: score auto but ur teammate is a bummmmmmmm", group="Robot")
+public class TeammateIsABumAuto extends LinearOpMode {
 
     /* Declare OpMode members. */
     private DcMotor leftDrive, rightDrive, armMotor, leftActuator, rightActuator;
@@ -125,16 +125,11 @@ public class Robot_RunByTimeAuto extends LinearOpMode {
 
         //Set the wrist position
         wrist.setPosition(WRIST_FOLDED_IN);
+
+
         sleep(1000);
-        //Put the sliders up
         leftActuator.setPower(ARM_FORWARD_SPEED);
         rightActuator.setPower(ARM_FORWARD_SPEED);
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-
-
-
         sleep(1900);
 
 
@@ -144,7 +139,7 @@ public class Robot_RunByTimeAuto extends LinearOpMode {
         armMotor.setTargetPosition((int) (ARM_ATTACH_HANGING_HOOK));
         ((DcMotorEx) armMotor).setVelocity(2100);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        sleep(5000);
+        sleep(2500);
 
         armMotor.setTargetPosition((int) (ARM_ATTACH_HANGING_HOOK));
         ((DcMotorEx) armMotor).setVelocity(2100);
@@ -189,16 +184,6 @@ public class Robot_RunByTimeAuto extends LinearOpMode {
         leftDrive.setPower(-0.3);
         rightDrive.setPower(-0.3);
         sleep(1500);
-        rightDrive.setPower(0.5);
-        leftDrive.setPower(-0.5);
-        sleep(1100);
-
-        // Drive Backwards
-        leftDrive.setPower(-0.5);
-        rightDrive.setPower(-0.5);
-        sleep(4000);
-
-        // END - stop
         leftDrive.setPower(0);
         rightDrive.setPower(0);
     }
