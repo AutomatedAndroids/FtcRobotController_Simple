@@ -239,13 +239,13 @@ run in this code. */
 //        frontlimelight.start();
 
         /* Send telemetry message to signify limelight status */
-        telemetry.addLine("Limelight started.");
+//        telemetry.addLine("Limelight started.");
 
         /* Send telemetry message to signify robot waiting */
-        telemetry.addLine("Robot Ready.");
-        telemetry.update();
-
-        /* Wait for the game driver to press play */
+//        telemetry.addLine("Robot Ready.");
+//        telemetry.update();
+//
+//        /* Wait for the game driver to press play */
         waitForStart();
 
 
@@ -548,7 +548,7 @@ telemetry. */
 
             telemetry.addData("left actuator", leftActuator.getCurrentPosition());
             telemetry.addData("right actuator", rightActuator.getCurrentPosition());
-            telemetry.addData("wrist position", wrist.getPosition());
+//            telemetry.addData("wrist position", wrist.getPosition());
 
             telemetry.update();
 
